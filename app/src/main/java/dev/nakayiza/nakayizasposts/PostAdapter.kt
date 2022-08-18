@@ -1,37 +1,31 @@
 package dev.nakayiza.nakayizasposts
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
+import dev.nakayiza.nakayizasposts.databinding.CardPostsBinding
 
-class PostAdapter (var post:List<Post>): RecyclerView.Adapter<PostViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        var view=LayoutInflater.from(parent.context).inflate(R.layout.card_posts,parent,false)
-        return PostViewHolder(view)
+class PostsRvAdapter(var posts: List<Post>):RecyclerView.Adapter<PostsViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
+        var binding = CardPostsBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        return PostsViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        return holder.bindView(post[position])
-    }
+    override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
+//        var  = posts.get(position) with (holder.binding){
+        var currentPost = posts.get(position)
+        with (holder.binding){
+            tvtittle.text = currentPost.title
+            tvbody.text = currentPost.body
 
+
+        }
+    }
     override fun getItemCount(): Int {
-        return post.size
+        return posts.size
     }
+
 }
 
-class PostViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-
-    private var tvtittle:TextView=itemView.findViewById(R.id.tvtittle)
-    private var tvbody:TextView=itemView.findViewById(R.id.tvbody)
-
-    fun bindView(post: Post){
-        tvtittle.text=post.title
-        tvbody.text=post.body
-
-
-
-    }
-}
+class  PostsViewHolder(val binding: CardPostsBinding): RecyclerView.ViewHolder(binding.root)

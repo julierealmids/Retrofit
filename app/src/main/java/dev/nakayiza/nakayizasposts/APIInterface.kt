@@ -10,4 +10,7 @@ interface APIInterface {
 
     @GET("/posts/{id}")
     fun getPostById(@Path("id")postId:Int):Call<Post>
+
+    @GET("/posts/{id}/comments")
+    fun getPostById(@Path("id")commentId:String):Call<List<comments>>
 }
